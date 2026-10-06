@@ -109,3 +109,18 @@ project-root/
 ├── .env.example
 └── README.md
 ```
+
+
+
+# Start API
+python -m src.main
+
+# In another terminal:
+curl http://localhost:8000/health
+curl -X POST http://localhost:8000/indexes
+curl http://localhost:8000/queries
+curl http://localhost:8000/queries/top_customers
+curl http://localhost:8000/aggregations/daily_sales
+curl -X POST http://localhost:8000/refresh-mv
+curl http://localhost:8000/jobs
+curl -X POST http://localhost:8000/jobs/refresh_daily_sales_mv/run
