@@ -1,0 +1,21 @@
+
+## 12. مثال reports/results.json المتوقع
+
+```json
+{
+  "run_id": "run_a1b2c3d4",
+  "file_name": "small_orders.csv",
+  "engine_used": "python_batch",
+  "rows_read": 5000,
+  "raw_loaded": 5000,
+  "valid_count": 3800,
+  "corrected_count": 1000,
+  "quarantine_count": 200,
+  "elapsed_seconds": 4.21,
+  "throughput": 1187.65,
+  "batch_size": 1000,
+  "inserted_count": 4800,
+  "updated_count": 0,
+  "unchanged_count": 0,
+  "consistency_ok": true
+}
