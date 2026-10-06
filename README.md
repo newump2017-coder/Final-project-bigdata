@@ -6,8 +6,8 @@ unified FastAPI interface, and incremental Materialized Views.
 ## 1. Installation
 
 ```bash
-git clone <your-repo-url>
-cd <repo>
+git clone https://github.com/newump2017-coder/Final-project-bigdata
+cd Final-project-bigdata
 python -m venv .venv
 source .venv/bin/activate     # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
