@@ -11,7 +11,6 @@ from src.aggregations.aggregations import ALL_AGGREGATIONS
 from src.mv.materialized_views import ALL_MVS
 from src.jobs.scheduler import JOBS, _run_job
 
-
 app = FastAPI(
     title="Big Data Pipeline API",
     description="Unified API for the Big Data Project Phase 2",
