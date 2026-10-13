@@ -124,3 +124,22 @@ curl http://localhost:8000/aggregations/daily_sales
 curl -X POST http://localhost:8000/refresh-mv
 curl http://localhost:8000/jobs
 curl -X POST http://localhost:8000/jobs/refresh_daily_sales_mv/run
+
+
+## API Testing Results
+
+### Start Command
+python -m src.main
+
+### Test Results
+
+| Endpoint | Method | Status Code | Response Summary |
+|----------|--------|-------------|------------------|
+| `/health` | GET | 200 | `{"status": "ok", "service": "bigdata-api"}` |
+| `/queries` | GET | 200 | `{"queries": ["top_customers", "date_range", "by_status", "high_value", "customer_orders"]}` |
+| `/queries/top_customers` | GET | 200 | `{"query": "top_customers", "count": 10, "result": [...]}` |
+| `/aggregations` | GET | 200 | `{"aggregations": ["daily_sales", "top_products", ...]}` |
+| `/jobs` | GET | 200 | `{"jobs": ["refresh_daily_sales_mv", "refresh_top_products_mv"]}` |
+
+### Swagger UI
+Accessible at `http://localhost:8000/docs`. All endpoints are documented and testable directly from the browser.
