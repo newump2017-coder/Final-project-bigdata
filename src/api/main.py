@@ -1,13 +1,10 @@
-"""
-Unified FastAPI interface.
-Requirement 5: All endpoints, JSON responses, Swagger at /docs.
-"""
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional
 
 from config.settings import settings
 from src.db import MongoManager
+# FIX: Ensure this import exactly matches the file structure
 from src.queries.queries import ALL_QUERIES
 from src.queries.indexes import create_indexes, run_explain_comparison
 from src.aggregations.aggregations import ALL_AGGREGATIONS
@@ -39,12 +36,7 @@ def health():
 
 @app.post("/ingest")
 def ingest(req: IngestRequest):
-    """
-    Trigger the midterm ingestion pipeline (File Router + PyBatch/PySpark).
-    Reuses existing pipeline; does NOT build a new input path.
-    """
     try:
-        # Import your midterm entry function; adjust name accordingly.
         from src.ingestion.pipeline import run_pipeline
         result = run_pipeline(req.file_path)
         return {"status": "success", "result": result}
@@ -68,6 +60,7 @@ def explain_indexes(req: ExplainRequest):
 
 @app.get("/queries")
 def list_queries():
+    # Return the keys of the ALL_QUERIES dictionary
     return {"queries": list(ALL_QUERIES.keys())}
 
 
@@ -75,13 +68,15 @@ def list_queries():
 def run_query(name: str):
     if name not in ALL_QUERIES:
         raise HTTPException(404, f"Unknown query: {name}")
+
     fn = ALL_QUERIES[name]
     with MongoManager() as db:
         try:
+            # Call the function with default arguments
             result = fn(db)
-        except TypeError:
-            # Query requires args; supply defaults
-            result = fn(db, customer_id="C001")
+        except Exception as e:
+            raise HTTPException(500, f"Error executing query {name}: {str(e)}")
+
     return {"query": name, "count": len(result), "result": result}
 
 
